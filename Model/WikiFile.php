@@ -24,6 +24,28 @@ class WikiFileModel extends FileModel
      */
     const EVENT_CREATE = 'wiki.file.create';
 
+
+    /**Acces Control List
+     * @user
+     * @group
+     * @premissions
+     */
+
+    Class Acl {
+   
+      private $db;
+   
+      //initialize the database object here
+      function __construct() {
+        $this->db = new db;
+      }
+   
+      function check($permission,$userid,$group_id) {
+   
+        //we check the user permissions first
+   
+      }
+   
     /**
      * Get the table
      *
@@ -63,11 +85,11 @@ class WikiFileModel extends FileModel
     /**
      * Get projectId from fileId
      *
-     * @access public
+     * @access protected
      * @param  integer $file_id
      * @return integer
      */
-    public function getProjectId($file_id)
+    protected function getProjectId($file_id)
     {
         return $this->db
             ->table(self::TABLE)
@@ -82,11 +104,13 @@ class WikiFileModel extends FileModel
      * @access public
      * @param  integer  $wiki_id      Wiki id
      * @param  string   $blob         Base64 encoded image
+     * @param  string   $original_filename    max size
      * @return bool|integer
      */
     public function uploadScreenshot($wiki_id, $blob)
     {
         $original_filename = e('Screenshot taken %s', $this->helper->dt->datetime(time())).'.png';
+        $original_filename = ini_set('upload_max_filesize', '10M');
         return $this->uploadContent($wiki_id, $original_filename, $blob);
     }
 
