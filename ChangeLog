@@ -1,4 +1,10 @@
-Version 0.2.5-alpha
+Version 0.2.5.1-alpha
+
+Bug fixes:
+
+* security fix class accesibility
+* fixed sql-injection posibility
+* added maximum file size to upload screenshots
 
 Bug fixes:
 
